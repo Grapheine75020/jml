@@ -30,7 +30,7 @@ export default function DirectionPicker() {
   const ext = characters[selectedIndex]?.extension
   const currentDirection = ext?.direction ?? ''
   const currentSliceCount = ext?.sliceCount ?? 3
-  const currentGap = ext?.gap ?? 0
+  const currentGap = ext?.gap ?? 10
 
   const handleDirection = (value: string) => {
     if (!value) return

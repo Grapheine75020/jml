@@ -44,12 +44,19 @@ export interface EngineStore {
   sliceCount: 1 | 2 | 3
   gap: number
   popupPosition: PopupPosition | null
+  // Transform data for hit detection
+  transform: {
+    scale: number
+    offsetX: number
+    offsetY: number
+  }
   selectCharacter: (index: number | null) => void
   setDirection: (d: Direction) => void
   setSliceCount: (n: 1 | 2 | 3) => void
   setGap: (px: number) => void
   markDirty: () => void
   updateCharacters: (chars: CharacterState[]) => void
+  setTransform: (t: { scale: number; offsetX: number; offsetY: number }) => void
   setFontStatus: (status: FontStatus) => void
   setOpentypeFont: (font: import('opentype.js').Font | null) => void
   setPopupPosition: (pos: PopupPosition | null) => void

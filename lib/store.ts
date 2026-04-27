@@ -27,8 +27,9 @@ export const useEngineStore = create<EngineStore>()((set) => ({
   isDirty: false,
   direction: 'right',
   sliceCount: 3,
-  gap: 0,
+  gap: 10,
   popupPosition: null,
+  transform: { scale: 1, offsetX: 0, offsetY: 0 },
 
   selectCharacter: (index) =>
     set(
@@ -75,6 +76,9 @@ export const useEngineStore = create<EngineStore>()((set) => ({
 
   updateCharacters: (chars: CharacterState[]) =>
     set({ characters: chars, isDirty: false }),
+
+  setTransform: (t) =>
+    set({ transform: t }),
 
   setFontStatus: (status: FontStatus) =>
     set({ fontStatus: status }),

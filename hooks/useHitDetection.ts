@@ -7,6 +7,7 @@ export function useHitDetection(
   canvasRef: React.RefObject<HTMLCanvasElement | null>,
 ) {
   const characters = useEngineStore((s) => s.characters)
+  const transform = useEngineStore((s) => s.transform)
   const selectCharacter = useEngineStore((s) => s.selectCharacter)
   const setPopupPosition = useEngineStore((s) => s.setPopupPosition)
 
@@ -16,8 +17,14 @@ export function useHitDetection(
 
     const handleClick = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
+      // Raw canvas coordinates (in CSS pixels)
+      const mouseX = e.clientX - rect.left
+      const mouseY = e.clientY - rect.top
+
+      // Convert to local coordinates (undo scale and translate)
+      // (localX + offsetX) * scale = mouseX  => localX = (mouseX / scale) - offsetX
+      const x = (mouseX / transform.scale) - transform.offsetX
+      const y = (mouseY / transform.scale) - transform.offsetY
 
       for (let i = 0; i < characters.length; i++) {
         const { bounds } = characters[i]
@@ -38,5 +45,5 @@ export function useHitDetection(
 
     canvas.addEventListener('click', handleClick)
     return () => canvas.removeEventListener('click', handleClick)
-  }, [canvasRef, characters, selectCharacter, setPopupPosition])
+  }, [canvasRef, characters, selectCharacter, setPopupPosition, transform])
 }

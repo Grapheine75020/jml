@@ -5,6 +5,7 @@ import { useEngineStore } from '@/lib/store'
 import { CANVAS_FONT, CANVAS_WIDTH, CANVAS_HEIGHT } from '@/lib/constants'
 import { computeGlyphBounds } from '@/lib/glyph-metrics'
 import { buildSliceRegions } from '@/lib/slice-engine'
+import { drawOnContext } from '@/lib/renderer-utils'
 import type { CharacterState, ExtensionConfig } from '@/lib/types'
 
 const BASELINE_RATIO = 0.65
@@ -15,9 +16,14 @@ const SELECTION_COLOR = '#7c3aed'
  * measured from the character's visual edge outward.
  * bandW = bounds.width / 6
  */
-function extensionWidth(boundsWidth: number, ext: ExtensionConfig): number {
-  const bandW = boundsWidth / 6
-  return ext.sliceCount * ext.gap + bandW * (ext.sliceCount * (ext.sliceCount + 1)) / 2
+/**
+ * Returns the total visual extension length (outward from the glyph edge)
+ * For sliceCount=N: size = bandSize * (N * (N+1) / 2) + N * gap
+ */
+function extensionLength(baseSize: number, ext: ExtensionConfig): number {
+  const bandSize = baseSize / 6
+  const cumulativeBands = (ext.sliceCount * (ext.sliceCount + 1)) / 2
+  return ext.gap * ext.sliceCount + bandSize * cumulativeBands
 }
 
 export function useCanvasRenderer(
@@ -27,6 +33,7 @@ export function useCanvasRenderer(
   const isDirty = useEngineStore((s) => s.isDirty)
   const selectedIndex = useEngineStore((s) => s.selectedIndex)
   const updateCharacters = useEngineStore((s) => s.updateCharacters)
+  const setTransform = useEngineStore((s) => s.setTransform)
   const rafRef = useRef<number | null>(null)
   const dprInit = useRef(false)
 
@@ -48,55 +55,57 @@ export function useCanvasRenderer(
     }
 
     rafRef.current = requestAnimationFrame(() => {
+      ctx.save()
       ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
       if (!text) {
         updateCharacters([])
+        ctx.restore()
         return
       }
 
       ctx.font = CANVAS_FONT
-      const baseline = CANVAS_HEIGHT * BASELINE_RATIO
+      const baseline = 0 // We'll compute the actual Y shift later
       const n = text.length
 
-      // ── Phase 1 : métriques de base (position-indépendantes) ────────────
+      // ── Phase 1 : métriques de base (à l'échelle 1:1) ────────────
       const advances: number[] = []
-      const blLeft: number[] = []  // actualBoundingBoxLeft
-      const blRight: number[] = [] // actualBoundingBoxRight
+      const blLeft: number[] = [] 
+      const blRight: number[] = []
+      const blAscent: number[] = []
+      const blDescent: number[] = []
 
       for (let i = 0; i < n; i++) {
         const m = ctx.measureText(text[i])
         advances[i] = m.width
         blLeft[i] = m.actualBoundingBoxLeft
         blRight[i] = m.actualBoundingBoxRight
+        blAscent[i] = m.actualBoundingBoxAscent
+        blDescent[i] = m.actualBoundingBoxDescent
       }
 
-      // Récupère les extensions stockées (non-réactif)
       const prevChars = useEngineStore.getState().characters
       const extensions: (ExtensionConfig | undefined)[] = Array.from({ length: n }, (_, i) =>
         prevChars[i]?.char === text[i] ? prevChars[i].extension : undefined,
       )
 
       // ── Phase 2 : calcul des push offsets ────────────────────────────────
-      // Pour chaque extension horizontale, décale les lettres adjacentes.
       const pushOffsets: number[] = new Array(n).fill(0)
 
       for (let i = 0; i < n; i++) {
         const ext = extensions[i]
         if (!ext?.direction) continue
         const boundsWidth = blLeft[i] + blRight[i]
-        const extW = extensionWidth(boundsWidth, ext)
+        const extLen = extensionLength(boundsWidth, ext)
 
         if (ext.direction === 'right') {
-          // Les lettres après i se décalent vers la droite
-          for (let j = i + 1; j < n; j++) pushOffsets[j] += extW
+          for (let j = i + 1; j < n; j++) pushOffsets[j] += extLen
         } else if (ext.direction === 'left') {
-          // Les lettres avant i se décalent vers la gauche
-          for (let j = 0; j < i; j++) pushOffsets[j] -= extW
+          for (let j = 0; j < i; j++) pushOffsets[j] -= extLen
         }
       }
 
-      // ── Phase 3 : positions curseurs ajustées + centrage ─────────────────
+      // ── Phase 3 : étendue totale pour auto-zoom et centrage ──────────────
       const rawCursors: number[] = new Array(n).fill(0)
       let rx = 0
       for (let i = 0; i < n; i++) {
@@ -104,89 +113,88 @@ export function useCanvasRenderer(
         rx += advances[i]
       }
 
-      // Étendue visuelle totale (lettres + projections horizontales)
-      const rightExts = extensions.map((ext, i) =>
-        ext && (ext.direction === 'right')
-          ? extensionWidth(blLeft[i] + blRight[i], ext)
-          : 0,
-      )
-      const leftExts = extensions.map((ext, i) =>
-        ext && (ext.direction === 'left')
-          ? extensionWidth(blLeft[i] + blRight[i], ext)
-          : 0,
-      )
+      const visualLefts: number[] = []
+      const visualRights: number[] = []
+      const visualTops: number[] = []
+      const visualBottoms: number[] = []
 
-      const visualLefts = rawCursors.map((x, i) => x - blLeft[i] - leftExts[i])
-      const visualRights = rawCursors.map((x, i) => x + blRight[i] + rightExts[i])
-      const minLeft = Math.min(...visualLefts)
-      const maxRight = Math.max(...visualRights)
-      const totalWidth = maxRight - minLeft
+      for (let i = 0; i < n; i++) {
+        const ext = extensions[i]
+        const boundsWidth = blLeft[i] + blRight[i]
+        const boundsHeight = blAscent[i] + blDescent[i]
+        
+        let leftExt = 0, rightExt = 0, topExt = 0, bottomExt = 0
+        if (ext?.direction === 'left') leftExt = extensionLength(boundsWidth, ext)
+        if (ext?.direction === 'right') rightExt = extensionLength(boundsWidth, ext)
+        if (ext?.direction === 'up') topExt = extensionLength(boundsHeight, ext)
+        if (ext?.direction === 'down') bottomExt = extensionLength(boundsHeight, ext)
 
-      // Décalage pour centrer la composition
-      const centerOffset = (CANVAS_WIDTH - totalWidth) / 2 - minLeft
-      const cursorXs = rawCursors.map((x) => x + centerOffset)
+        visualLefts.push(rawCursors[i] - blLeft[i] - leftExt)
+        visualRights.push(rawCursors[i] + blRight[i] + rightExt)
+        visualTops.push(-blAscent[i] - topExt)
+        visualBottoms.push(blDescent[i] + bottomExt)
+      }
 
-      // ── Phase 4 : rendu ──────────────────────────────────────────────────
-      const chars: CharacterState[] = []
+      const minL = Math.min(...visualLefts)
+      const maxR = Math.max(...visualRights)
+      const minT = Math.min(...visualTops)
+      const maxB = Math.max(...visualBottoms)
+
+      const totalW = maxR - minL
+      const totalH = maxB - minT
+
+      // ── Phase 4 : calcul Zoom & Translation ──────────────────────────────
+      const PADDING = 60
+      const availableW = CANVAS_WIDTH - PADDING * 2
+      const availableH = CANVAS_HEIGHT - PADDING * 2
+      
+      const scale = Math.min(1, availableW / totalW, availableH / totalH)
+      
+      // On applique le scale
+      ctx.scale(scale, scale)
+
+      // Décalage pour centrer
+      const targetCenterX = CANVAS_WIDTH / 2 / scale
+      const targetCenterY = CANVAS_HEIGHT / 2 / scale
+      const currentCenterX = (minL + maxR) / 2
+      const currentCenterY = (minT + maxB) / 2
+
+      const offsetX = targetCenterX - currentCenterX
+      const offsetY = targetCenterY - currentCenterY
+
+      ctx.translate(offsetX, offsetY)
+      setTransform({ scale, offsetX, offsetY })
+
+      // ── Phase 5 : rendu final ────────────────────────────────────────────
+      const finalChars: CharacterState[] = []
 
       for (let i = 0; i < n; i++) {
         const char = text[i]
-        const x = cursorXs[i]
-        const bounds = computeGlyphBounds(ctx, char, x, baseline)
+        const x = rawCursors[i]
+        const y = 0 // relative to translation
+        const bounds = computeGlyphBounds(ctx, char, x, y)
 
-        chars.push({
+        finalChars.push({
           char,
           position: i,
           bounds,
           isSelected: i === selectedIndex,
           extension: extensions[i],
         })
-
-        if (i === selectedIndex) {
-          ctx.save()
-          ctx.strokeStyle = SELECTION_COLOR
-          ctx.lineWidth = 2
-          ctx.strokeRect(bounds.x - 3, bounds.y - 3, bounds.width + 6, bounds.height + 6)
-          ctx.restore()
-        }
-
-        ctx.fillStyle = '#000000'
-        ctx.fillText(char, x, baseline)
       }
 
-      // ── Phase 5 : tranches pour tous les caractères avec extension ────────
-      for (let i = 0; i < n; i++) {
-        const ext = chars[i].extension
-        if (!ext?.direction) continue
+      // We need to restore because drawOnContext does its own save/restore and clear
+      ctx.restore()
+      
+      drawOnContext(ctx, finalChars, { scale, offsetX, offsetY }, {
+        showSelection: true,
+      })
 
-        const slices = buildSliceRegions(
-          chars[i].bounds,
-          ext.direction,
-          ext.sliceCount,
-          ext.gap,
-        )
-
-        for (const slice of slices) {
-          ctx.save()
-          ctx.beginPath()
-          ctx.rect(slice.clipRect.x, slice.clipRect.y, slice.clipRect.w, slice.clipRect.h)
-          ctx.clip()
-          ctx.fillStyle = '#000000'
-          ctx.font = CANVAS_FONT
-          ctx.fillText(
-            chars[i].char,
-            cursorXs[i] + slice.renderOffset.dx,
-            baseline + slice.renderOffset.dy,
-          )
-          ctx.restore()
-        }
-      }
-
-      updateCharacters(chars)
+      updateCharacters(finalChars)
     })
 
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current)
     }
-  }, [isDirty, text, selectedIndex, canvasRef, updateCharacters])
+  }, [isDirty, text, selectedIndex, canvasRef, updateCharacters, setTransform])
 }
