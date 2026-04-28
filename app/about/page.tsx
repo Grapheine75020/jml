@@ -9,6 +9,12 @@ import {
 } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 
 export const metadata = {
   title: 'À propos — Graphic Tool JML',
@@ -25,9 +31,9 @@ const steps = [
 const specs: [string, string][] = [
   ['Police', 'Libre Franklin Medium 500'],
   ['Canvas', '1200 × 800 px'],
-  ['Export SVG', 'Paths vectoriels natifs — compatible Adobe Illustrator'],
+  ['Export SVG', 'Paths vectoriels natifs - compatible Adobe Illustrator'],
   ['Export PNG', '300 dpi, fond transparent'],
-  ['Navigateurs', 'Chrome, Safari, Edge — desktop ≥ 1280 px'],
+  ['Navigateurs', 'Chrome, Safari, Edge - desktop ≥ 1280 px'],
 ]
 
 export default function AboutPage() {
@@ -72,19 +78,23 @@ export default function AboutPage() {
           <Separator />
 
           {/* Spécifications */}
-          <div className="space-y-4">
-            <h2 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-              Spécifications techniques
-            </h2>
-            <dl className="space-y-2 text-sm">
-              {specs.map(([label, value]) => (
-                <div key={label} className="flex gap-4">
-                  <dt className="text-muted-foreground shrink-0 w-28">{label}</dt>
-                  <dd className="text-foreground">{value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
+          <Accordion type="single" collapsible className="border-none rounded-none">
+            <AccordionItem value="specs" className="border-none data-[state=open]:bg-transparent">
+              <AccordionTrigger className="p-0 text-sm font-medium uppercase tracking-widest text-muted-foreground hover:no-underline">
+                Spécifications techniques
+              </AccordionTrigger>
+              <AccordionContent className="px-0 pb-0">
+                <dl className="space-y-2 text-sm pt-4">
+                  {specs.map(([label, value]) => (
+                    <div key={label} className="flex gap-4">
+                      <dt className="text-muted-foreground shrink-0 w-28">{label}</dt>
+                      <dd className="text-foreground">{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
 
           <Separator />
 
