@@ -6,6 +6,7 @@ import { useCanvasRenderer } from '@/hooks/useCanvasRenderer'
 import { useHitDetection } from '@/hooks/useHitDetection'
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from '@/lib/constants'
 import { Input } from '@/components/ui/input'
+import ExportPanel from '@/components/ExportPanel'
 
 export default function CanvasEditor() {
   const [text, setText] = useState('')
@@ -25,22 +26,33 @@ export default function CanvasEditor() {
   }
 
   return (
-    <div className="flex flex-col items-start gap-4">
+    <div className="flex flex-col items-center gap-0 w-full">
       <div className="overflow-x-auto">
-        <canvas
-          ref={canvasRef}
-          width={CANVAS_WIDTH}
-          height={CANVAS_HEIGHT}
-          className="block cursor-pointer border border-border bg-white"
-        />
+        <div
+          className="flex flex-col overflow-hidden rounded-4xl border border-border shadow-sm"
+          style={{ width: CANVAS_WIDTH }}
+        >
+          {/* Canvas — pas de border CSS, le wrapper gère les arrondis */}
+          <canvas
+            ref={canvasRef}
+            width={CANVAS_WIDTH}
+            height={CANVAS_HEIGHT}
+            className="block cursor-pointer"
+          />
+
+          {/* Toolbar */}
+          <div className="flex items-center gap-3 border-t border-border bg-background px-4 h-[52px]">
+            <Input
+              value={text}
+              onChange={handleChange}
+              placeholder="Saisissez votre texte…"
+              className="flex-1 h-9 border-0 shadow-none focus-visible:ring-0"
+              autoFocus
+            />
+            <ExportPanel />
+          </div>
+        </div>
       </div>
-      <Input
-        value={text}
-        onChange={handleChange}
-        placeholder="Saisissez votre texte…"
-        className="w-80"
-        autoFocus
-      />
     </div>
   )
 }

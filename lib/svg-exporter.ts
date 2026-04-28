@@ -49,7 +49,7 @@ export function generateSVG(
     const y = 0
 
     const glyph = opentypeFont.charToGlyph(char)
-    const pathData = glyph.getPath(x, y, fontSize).toPathData()
+    const pathData = glyph.getPath(x, y, fontSize).toPathData(2)
 
     svgContent += `    <path d="${pathData}" fill="black" />\n`
 
@@ -63,7 +63,7 @@ export function generateSVG(
       slices.forEach((slice, j) => {
         const sliceX = x + slice.renderOffset.dx
         const sliceY = y + slice.renderOffset.dy
-        const slicePathData = glyph.getPath(sliceX, sliceY, fontSize).toPathData()
+        const slicePathData = glyph.getPath(sliceX, sliceY, fontSize).toPathData(2)
         svgContent += `    <path d="${slicePathData}" fill="black" clip-path="url(#clip-${i}-${j})" />\n`
       })
     }

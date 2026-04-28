@@ -14,6 +14,7 @@ export function drawOnContext(
     width?: number
     height?: number
     exportScale?: number
+    isDark?: boolean
   } = {},
 ) {
   const { scale, offsetX, offsetY } = transform
@@ -22,10 +23,18 @@ export function drawOnContext(
     width = CANVAS_WIDTH,
     height = CANVAS_HEIGHT,
     exportScale = 1,
+    isDark = false,
   } = options
+
+  const textColor = isDark ? '#ffffff' : '#000000'
 
   ctx.save()
   ctx.clearRect(0, 0, width, height)
+
+  if (isDark) {
+    ctx.fillStyle = '#09090b'
+    ctx.fillRect(0, 0, width, height)
+  }
 
   // Apply export scale if any (for high res)
   if (exportScale !== 1) {
@@ -56,7 +65,7 @@ export function drawOnContext(
       ctx.restore()
     }
 
-    ctx.fillStyle = '#000000'
+    ctx.fillStyle = textColor
     ctx.font = CANVAS_FONT
     ctx.fillText(c.char, x, y)
   })
@@ -76,7 +85,7 @@ export function drawOnContext(
       ctx.beginPath()
       ctx.rect(slice.clipRect.x, slice.clipRect.y, slice.clipRect.w, slice.clipRect.h)
       ctx.clip()
-      ctx.fillStyle = '#000000'
+      ctx.fillStyle = textColor
       ctx.font = CANVAS_FONT
       ctx.fillText(c.char, x + slice.renderOffset.dx, slice.renderOffset.dy)
       ctx.restore()

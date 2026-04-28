@@ -34,8 +34,16 @@ export function useCanvasRenderer(
   const selectedIndex = useEngineStore((s) => s.selectedIndex)
   const updateCharacters = useEngineStore((s) => s.updateCharacters)
   const setTransform = useEngineStore((s) => s.setTransform)
+  const markDirty = useEngineStore((s) => s.markDirty)
   const rafRef = useRef<number | null>(null)
   const dprInit = useRef(false)
+
+  // Re-render when theme changes (dark/light class on <html>)
+  useEffect(() => {
+    const observer = new MutationObserver(() => markDirty())
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+    return () => observer.disconnect()
+  }, [markDirty])
 
   useEffect(() => {
     if (!isDirty) return
@@ -186,8 +194,10 @@ export function useCanvasRenderer(
       // We need to restore because drawOnContext does its own save/restore and clear
       ctx.restore()
       
+      const isDark = document.documentElement.classList.contains('dark')
       drawOnContext(ctx, finalChars, { scale, offsetX, offsetY }, {
         showSelection: true,
+        isDark,
       })
 
       updateCharacters(finalChars)

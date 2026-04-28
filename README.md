@@ -1,43 +1,46 @@
-# JML - Typography Canvas Editor
+# Graphic Tool JML
 
-JML est une application avancée de manipulation et de visualisation typographique basée sur Next.js. Elle permet d'éditer et de transformer des glyphes en temps réel via un moteur de rendu haute performance.
+Outil de composition typographique directionnelle basé sur la charte graphique JML, développé pour permettre aux équipes Grapheine et JML Water Feature Design de créer facilement des compositions dans l'identité visuelle JML.
 
-## Fonctionnalités clés
+## Fonctionnement
 
-- **Slice Engine Custom** : Moteur de rendu spécialisé pour la manipulation géométrique des glyphes.
-- **Éditeur Canvas Interactif** : Interface de dessin et d'édition pour visualiser les transformations typographiques.
-- **Gestion de Polices Dynamique** : Chargement et analyse de fichiers de polices via OpenType.js.
-- **Système de Cache de Glyphes** : Optimisation des performances grâce à une mise en cache intelligente des métriques et des tracés.
-- **Interface Modulaire** : Panneaux de contrôle précis pour ajuster les directions, les espacements et les paramètres de rendu.
-- **Architecture Robuste** : Utilisation de Zustand pour la gestion d'état et d'une bibliothèque de composants UI optimisée.
+1. Saisir un texte libre dans le canvas.
+2. Cliquer sur une lettre pour la sélectionner.
+3. Choisir une direction d'extension — haut, bas, gauche, droite.
+4. Ajuster le nombre de tranches (1 à 3) et l'espacement (0 à 100 px).
+5. Exporter en SVG vectoriel ou PNG 300 dpi fond transparent.
 
-## Stack Technique
+## Spécifications techniques
 
-- **Framework** : Next.js (App Router)
-- **Langage** : TypeScript
-- **Rendu** : HTML5 Canvas / OpenType.js
+| Paramètre | Valeur |
+|---|---|
+| Police | Libre Franklin Medium 500 |
+| Canvas | 1200 × 800 px |
+| Export SVG | Paths vectoriels natifs — compatible Adobe Illustrator |
+| Export PNG | 300 dpi, fond transparent |
+| Navigateurs | Chrome, Safari, Edge — desktop ≥ 1280 px |
+
+## Stack
+
+- **Framework** : Next.js 15 (App Router) — React 19 — TypeScript
+- **Rendu** : HTML5 Canvas 2D / OpenType.js
 - **État** : Zustand
-- **UI** : Tailwind CSS / Radix UI / shadcn/ui
-- **Tests** : Vitest
+- **UI** : Tailwind CSS v4 / Radix UI / shadcn/ui
+- **Thème** : next-themes (light / dark)
 
 ## Installation
 
 ```bash
 npm install
-```
-
-## Développement
-
-Pour lancer le serveur de développement :
-
-```bash
 npm run dev
 ```
 
-## Tests
+## Crédits
 
-Pour exécuter la suite de tests unitaires :
+- **Conception de l'identité visuelle JML** — [Grapheine](https://grapheine.com), agence de design graphique
+- **Développement de l'outil** — Alessandro Capiluppi / [PicoDesign](https://picodesign.fr)
+- **Client** — [JML Water Feature Design](https://jmlwaterfeaturedesign.com/fr)
 
-```bash
-npm test
-```
+## Licence
+
+Voir [LICENSE](./LICENSE).
