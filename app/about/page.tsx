@@ -160,7 +160,7 @@ export default function AboutPage() {
                   </a>
                 </div>
                 <span className="text-xs text-muted-foreground">
-                  Grapheine / Studio indépendant
+                  Grapheine
                 </span>
               </div>
             </div>
@@ -193,7 +193,7 @@ export default function AboutPage() {
               <div className="flex flex-col">
                 <span className="text-xs text-muted-foreground">Client</span>
                 <span className="text-sm font-medium group-hover:underline underline-offset-2">
-                  JML Water Feature Design
+                  JML - Water Feature Design
                 </span>
                 <span className="text-xs text-muted-foreground">
                   Installations de jeux d&apos;eau
