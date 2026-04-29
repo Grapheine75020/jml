@@ -43,6 +43,7 @@ next-env.d.ts
 _bmad/
 _bmad-output/
 .mcp.json
+opencode.json
 skills-lock.json
 skills/
 .sources/
