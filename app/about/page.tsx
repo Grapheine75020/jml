@@ -23,14 +23,16 @@ export const metadata = {
 const steps = [
   'Saisir un texte libre dans le canvas.',
   'Cliquer sur une lettre pour la sélectionner.',
-  "Choisir une direction d'extension — haut, bas, gauche, droite.",
-  "Ajuster le nombre de tranches (1 à 3) et l'espacement (0 à 100 px).",
+  "Activer une ou plusieurs directions d'extension — haut, bas, gauche, droite. Chaque direction est un toggle indépendant : clic pour activer, re-clic pour désactiver. Plusieurs directions peuvent être actives simultanément sur la même lettre.",
+  "Choisir le plafond de tranches parmi les presets 3, 4 ou 6. Le slider permet ensuite de régler finement le nombre de tranches jusqu'à ce plafond. Ajuster l'espacement entre tranches de 0 à 100 px.",
   'Exporter en SVG vectoriel ou PNG 300 dpi fond transparent.',
 ]
 
 const specs: [string, string][] = [
   ['Police', 'Libre Franklin Medium 500'],
   ['Canvas', '1200 × 800 px'],
+  ['Directions', 'Jusqu\'à 4 directions actives simultanément par lettre'],
+  ['Tranches max', 'Presets 3 / 4 / 6 — slider ajustable jusqu\'au plafond choisi'],
   ['Export SVG', 'Paths vectoriels natifs - compatible Adobe Illustrator'],
   ['Export PNG', '300 dpi, fond transparent'],
   ['Navigateurs', 'Chrome, Safari, Edge - desktop ≥ 1280 px'],
