@@ -45,6 +45,10 @@ export function drawOnContext(
   ctx.scale(scale, scale)
   ctx.translate(offsetX, offsetY)
 
+  // Set font once before any measureText calls — required so that char 0
+  // is measured with the correct font (not whatever was active before this call).
+  ctx.font = CANVAS_FONT
+
   // 1. Draw base characters
   characters.forEach((c) => {
     // Recompute baseline X from bounds
@@ -66,7 +70,6 @@ export function drawOnContext(
     }
 
     ctx.fillStyle = textColor
-    ctx.font = CANVAS_FONT
     ctx.fillText(c.char, x, y)
   })
 
