@@ -18,7 +18,7 @@ export type SliceRegion = {
 export type SlicePreset = 3 | 4 | 6
 
 export type ExtensionConfig = {
-  direction: Direction
+  directions: Direction[]
   sliceCount: 1 | 2 | 3 | 4 | 5 | 6
   gap: number
   slices: SliceRegion[]
@@ -42,7 +42,6 @@ export interface EngineStore {
   characters: CharacterState[]
   selectedIndex: number | null
   isDirty: boolean
-  direction: Direction
   sliceCount: 1 | 2 | 3 | 4 | 5 | 6
   slicePreset: SlicePreset
   gap: number
@@ -54,7 +53,7 @@ export interface EngineStore {
     offsetY: number
   }
   selectCharacter: (index: number | null) => void
-  setDirection: (d: Direction) => void
+  toggleDirection: (d: Direction) => void
   setSliceCount: (n: 1 | 2 | 3 | 4 | 5 | 6) => void
   setSlicePreset: (p: SlicePreset) => void
   setGap: (px: number) => void

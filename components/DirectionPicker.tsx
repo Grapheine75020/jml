@@ -22,7 +22,7 @@ export default function DirectionPicker() {
   const selectedIndex = useEngineStore((s) => s.selectedIndex)
   const characters = useEngineStore((s) => s.characters)
   const slicePreset = useEngineStore((s) => s.slicePreset)
-  const setDirection = useEngineStore((s) => s.setDirection)
+  const toggleDirection = useEngineStore((s) => s.toggleDirection)
   const setSliceCount = useEngineStore((s) => s.setSliceCount)
   const setSlicePreset = useEngineStore((s) => s.setSlicePreset)
   const setGap = useEngineStore((s) => s.setGap)
@@ -32,14 +32,18 @@ export default function DirectionPicker() {
   if (!popupPosition || selectedIndex === null) return null
 
   const ext = characters[selectedIndex]?.extension
-  const currentDirection = ext?.direction ?? ''
+  const currentDirections = ext?.directions ?? []
   const currentSliceCount = ext?.sliceCount ?? 3
   const currentGap = ext?.gap ?? 10
 
-  const handleDirection = (value: string) => {
-    if (!value) return
-    setDirection(value as Direction)
-    setPopupPosition(null)
+  const handleDirection = (values: string[]) => {
+    // ToggleGroup type="multiple" fires with the full new selection array.
+    // We derive which direction was toggled by comparing with current state.
+    const prev = new Set(currentDirections)
+    const next = new Set(values as Direction[])
+    const toggled =
+      [...next].find((d) => !prev.has(d)) ?? [...prev].find((d) => !next.has(d))
+    if (toggled) toggleDirection(toggled as Direction)
   }
 
   const handleSliceCount = (value: number[]) => {
@@ -67,8 +71,8 @@ export default function DirectionPicker() {
         style={{ left: popupPosition.x + 12, top: popupPosition.y + 12, minWidth: 180 }}
       >
         <ToggleGroup
-          type="single"
-          value={currentDirection}
+          type="multiple"
+          value={currentDirections}
           onValueChange={handleDirection}
         >
           {DIRECTIONS.map(({ value, icon, label }) => (
@@ -78,7 +82,7 @@ export default function DirectionPicker() {
           ))}
         </ToggleGroup>
 
-        {ext?.direction && (
+        {currentDirections.length > 0 && (
           <>
             <Separator />
 

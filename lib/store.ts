@@ -11,7 +11,7 @@ import type {
 
 function updateSelectedExtension(
   state: { characters: CharacterState[]; selectedIndex: number | null },
-  patch: Partial<{ direction: Direction; sliceCount: 1 | 2 | 3 | 4 | 5 | 6; gap: number }>,
+  patch: Partial<{ sliceCount: 1 | 2 | 3 | 4 | 5 | 6; gap: number }>,
 ): CharacterState[] {
   if (state.selectedIndex === null) return state.characters
   return state.characters.map((c, i) => {
@@ -26,7 +26,6 @@ export const useEngineStore = create<EngineStore>()((set) => ({
   characters: [],
   selectedIndex: null,
   isDirty: false,
-  direction: 'right',
   sliceCount: 3,
   slicePreset: 3,
   gap: 10,
@@ -40,23 +39,27 @@ export const useEngineStore = create<EngineStore>()((set) => ({
         : { selectedIndex: index, isDirty: true },
     ),
 
-  setDirection: (d: Direction) =>
+  toggleDirection: (d: Direction) =>
     set((state) => {
-      if (state.selectedIndex === null) return { direction: d, isDirty: true }
-      const characters = state.characters.map((c, i) =>
-        i === state.selectedIndex
-          ? {
-              ...c,
-              extension: {
-                direction: d,
-                sliceCount: c.extension?.sliceCount ?? state.sliceCount,
-                gap: c.extension?.gap ?? state.gap,
-                slices: [],
-              },
-            }
-          : c,
-      )
-      return { direction: d, isDirty: true, characters }
+      if (state.selectedIndex === null) return {}
+      const characters = state.characters.map((c, i) => {
+        if (i !== state.selectedIndex) return c
+        const current = c.extension?.directions ?? []
+        const next = current.includes(d)
+          ? current.filter((x) => x !== d)
+          : [...current, d]
+        if (next.length === 0) return { ...c, extension: undefined }
+        return {
+          ...c,
+          extension: {
+            directions: next,
+            sliceCount: c.extension?.sliceCount ?? state.sliceCount,
+            gap: c.extension?.gap ?? state.gap,
+            slices: [],
+          },
+        }
+      })
+      return { isDirty: true, characters }
     }),
 
   setSliceCount: (n: 1 | 2 | 3 | 4 | 5 | 6) =>

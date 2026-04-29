@@ -23,17 +23,14 @@ export function generateSVG(
   svgContent += '  <defs>\n'
   characters.forEach((charState, i) => {
     const { extension, bounds } = charState
-    if (extension?.direction) {
-      const slices = buildSliceRegions(
-        bounds,
-        extension.direction,
-        extension.sliceCount,
-        extension.gap,
-      )
-      slices.forEach((slice, j) => {
-        svgContent += `    <clipPath id="clip-${i}-${j}">\n`
-        svgContent += `      <rect x="${slice.clipRect.x}" y="${slice.clipRect.y}" width="${slice.clipRect.w}" height="${slice.clipRect.h}" />\n`
-        svgContent += `    </clipPath>\n`
+    if (extension?.directions?.length) {
+      extension.directions.forEach((dir, di) => {
+        const slices = buildSliceRegions(bounds, dir, extension.sliceCount, extension.gap)
+        slices.forEach((slice, j) => {
+          svgContent += `    <clipPath id="clip-${i}-${di}-${j}">\n`
+          svgContent += `      <rect x="${slice.clipRect.x}" y="${slice.clipRect.y}" width="${slice.clipRect.w}" height="${slice.clipRect.h}" />\n`
+          svgContent += `    </clipPath>\n`
+        })
       })
     }
   })
@@ -53,18 +50,15 @@ export function generateSVG(
 
     svgContent += `    <path d="${pathData}" fill="black" />\n`
 
-    if (extension?.direction) {
-      const slices = buildSliceRegions(
-        bounds,
-        extension.direction,
-        extension.sliceCount,
-        extension.gap,
-      )
-      slices.forEach((slice, j) => {
-        const sliceX = x + slice.renderOffset.dx
-        const sliceY = y + slice.renderOffset.dy
-        const slicePathData = glyph.getPath(sliceX, sliceY, fontSize).toPathData(2)
-        svgContent += `    <path d="${slicePathData}" fill="black" clip-path="url(#clip-${i}-${j})" />\n`
+    if (extension?.directions?.length) {
+      extension.directions.forEach((dir, di) => {
+        const slices = buildSliceRegions(bounds, dir, extension.sliceCount, extension.gap)
+        slices.forEach((slice, j) => {
+          const sliceX = x + slice.renderOffset.dx
+          const sliceY = y + slice.renderOffset.dy
+          const slicePathData = glyph.getPath(sliceX, sliceY, fontSize).toPathData(2)
+          svgContent += `    <path d="${slicePathData}" fill="black" clip-path="url(#clip-${i}-${di}-${j})" />\n`
+        })
       })
     }
   })

@@ -76,22 +76,23 @@ export function drawOnContext(
   // 2. Draw extensions (slices)
   characters.forEach((c) => {
     const ext = c.extension
-    if (!ext?.direction) return
+    if (!ext?.directions?.length) return
 
     const m = ctx.measureText(c.char)
     const x = c.bounds.x + m.actualBoundingBoxLeft
 
-    const slices = buildSliceRegions(c.bounds, ext.direction, ext.sliceCount, ext.gap)
-
-    for (const slice of slices) {
-      ctx.save()
-      ctx.beginPath()
-      ctx.rect(slice.clipRect.x, slice.clipRect.y, slice.clipRect.w, slice.clipRect.h)
-      ctx.clip()
-      ctx.fillStyle = textColor
-      ctx.font = CANVAS_FONT
-      ctx.fillText(c.char, x + slice.renderOffset.dx, slice.renderOffset.dy)
-      ctx.restore()
+    for (const dir of ext.directions) {
+      const slices = buildSliceRegions(c.bounds, dir, ext.sliceCount, ext.gap)
+      for (const slice of slices) {
+        ctx.save()
+        ctx.beginPath()
+        ctx.rect(slice.clipRect.x, slice.clipRect.y, slice.clipRect.w, slice.clipRect.h)
+        ctx.clip()
+        ctx.fillStyle = textColor
+        ctx.font = CANVAS_FONT
+        ctx.fillText(c.char, x + slice.renderOffset.dx, slice.renderOffset.dy)
+        ctx.restore()
+      }
     }
   })
 

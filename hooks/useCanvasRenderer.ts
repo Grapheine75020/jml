@@ -102,14 +102,16 @@ export function useCanvasRenderer(
 
       for (let i = 0; i < n; i++) {
         const ext = extensions[i]
-        if (!ext?.direction) continue
+        if (!ext?.directions?.length) continue
         const boundsWidth = blLeft[i] + blRight[i]
         const extLen = extensionLength(boundsWidth, ext)
 
-        if (ext.direction === 'right') {
-          for (let j = i + 1; j < n; j++) pushOffsets[j] += extLen
-        } else if (ext.direction === 'left') {
-          for (let j = 0; j < i; j++) pushOffsets[j] -= extLen
+        for (const dir of ext.directions) {
+          if (dir === 'right') {
+            for (let j = i + 1; j < n; j++) pushOffsets[j] += extLen
+          } else if (dir === 'left') {
+            for (let j = 0; j < i; j++) pushOffsets[j] -= extLen
+          }
         }
       }
 
@@ -132,10 +134,12 @@ export function useCanvasRenderer(
         const boundsHeight = blAscent[i] + blDescent[i]
         
         let leftExt = 0, rightExt = 0, topExt = 0, bottomExt = 0
-        if (ext?.direction === 'left') leftExt = extensionLength(boundsWidth, ext)
-        if (ext?.direction === 'right') rightExt = extensionLength(boundsWidth, ext)
-        if (ext?.direction === 'up') topExt = extensionLength(boundsHeight, ext)
-        if (ext?.direction === 'down') bottomExt = extensionLength(boundsHeight, ext)
+        for (const dir of ext?.directions ?? []) {
+          if (dir === 'left') leftExt += extensionLength(boundsWidth, ext!)
+          if (dir === 'right') rightExt += extensionLength(boundsWidth, ext!)
+          if (dir === 'up') topExt += extensionLength(boundsHeight, ext!)
+          if (dir === 'down') bottomExt += extensionLength(boundsHeight, ext!)
+        }
 
         visualLefts.push(rawCursors[i] - blLeft[i] - leftExt)
         visualRights.push(rawCursors[i] + blRight[i] + rightExt)
