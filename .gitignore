@@ -35,6 +35,9 @@ pnpm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# planning & internal artifacts
+design-artifacts/
+
 # tools & agents
 .agents/
 .claude/
