@@ -6,11 +6,12 @@ import type {
   EngineStore,
   FontStatus,
   PopupPosition,
+  SlicePreset,
 } from './types'
 
 function updateSelectedExtension(
   state: { characters: CharacterState[]; selectedIndex: number | null },
-  patch: Partial<{ direction: Direction; sliceCount: 1 | 2 | 3; gap: number }>,
+  patch: Partial<{ direction: Direction; sliceCount: 1 | 2 | 3 | 4 | 5 | 6; gap: number }>,
 ): CharacterState[] {
   if (state.selectedIndex === null) return state.characters
   return state.characters.map((c, i) => {
@@ -27,6 +28,7 @@ export const useEngineStore = create<EngineStore>()((set) => ({
   isDirty: false,
   direction: 'right',
   sliceCount: 3,
+  slicePreset: 3,
   gap: 10,
   popupPosition: null,
   transform: { scale: 1, offsetX: 0, offsetY: 0 },
@@ -57,12 +59,26 @@ export const useEngineStore = create<EngineStore>()((set) => ({
       return { direction: d, isDirty: true, characters }
     }),
 
-  setSliceCount: (n: 1 | 2 | 3) =>
+  setSliceCount: (n: 1 | 2 | 3 | 4 | 5 | 6) =>
     set((state) => ({
       sliceCount: n,
       isDirty: true,
       characters: updateSelectedExtension(state, { sliceCount: n }),
     })),
+
+  setSlicePreset: (p: SlicePreset) =>
+    set((state) => {
+      const clampedSlice = Math.min(state.sliceCount, p) as 1 | 2 | 3 | 4 | 5 | 6
+      const characters = clampedSlice !== state.sliceCount
+        ? updateSelectedExtension(state, { sliceCount: clampedSlice })
+        : state.characters
+      return {
+        slicePreset: p,
+        sliceCount: clampedSlice,
+        isDirty: true,
+        characters,
+      }
+    }),
 
   setGap: (px: number) =>
     set((state) => ({

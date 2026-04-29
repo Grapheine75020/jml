@@ -6,7 +6,9 @@ import { Slider } from '@/components/ui/slider'
 import { Card } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { useEngineStore } from '@/lib/store'
-import type { Direction } from '@/lib/types'
+import type { Direction, SlicePreset } from '@/lib/types'
+
+const SLICE_PRESETS: SlicePreset[] = [3, 4, 6]
 
 const DIRECTIONS: { value: Direction; icon: React.ReactNode; label: string }[] = [
   { value: 'up', icon: <ArrowUp size={16} />, label: 'Haut' },
@@ -19,8 +21,10 @@ export default function DirectionPicker() {
   const popupPosition = useEngineStore((s) => s.popupPosition)
   const selectedIndex = useEngineStore((s) => s.selectedIndex)
   const characters = useEngineStore((s) => s.characters)
+  const slicePreset = useEngineStore((s) => s.slicePreset)
   const setDirection = useEngineStore((s) => s.setDirection)
   const setSliceCount = useEngineStore((s) => s.setSliceCount)
+  const setSlicePreset = useEngineStore((s) => s.setSlicePreset)
   const setGap = useEngineStore((s) => s.setGap)
   const setPopupPosition = useEngineStore((s) => s.setPopupPosition)
   const selectCharacter = useEngineStore((s) => s.selectCharacter)
@@ -39,8 +43,12 @@ export default function DirectionPicker() {
   }
 
   const handleSliceCount = (value: number[]) => {
-    const n = value[0] as 1 | 2 | 3
+    const n = value[0] as 1 | 2 | 3 | 4 | 5 | 6
     setSliceCount(n)
+  }
+
+  const handleSlicePreset = (p: SlicePreset) => {
+    setSlicePreset(p)
   }
 
   const handleGap = (value: number[]) => {
@@ -79,9 +87,24 @@ export default function DirectionPicker() {
                 <span className="text-muted-foreground text-xs">Tranches</span>
                 <span className="text-xs font-medium">{currentSliceCount}</span>
               </div>
+              <div className="flex gap-1">
+                {SLICE_PRESETS.map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => handleSlicePreset(p)}
+                    className={`flex-1 rounded px-2 py-0.5 text-xs transition-colors ${
+                      slicePreset === p
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                    }`}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
               <Slider
                 min={1}
-                max={3}
+                max={slicePreset}
                 step={1}
                 value={[currentSliceCount]}
                 onValueChange={handleSliceCount}

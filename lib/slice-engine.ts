@@ -17,7 +17,7 @@ import type { Direction, GlyphBounds, SliceRegion } from './types'
 export function buildSliceRegions(
   bounds: GlyphBounds,
   direction: Direction,
-  sliceCount: 1 | 2 | 3,
+  sliceCount: number,
   gap: number,
 ): SliceRegion[] {
   const result: SliceRegion[] = []
