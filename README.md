@@ -3,6 +3,8 @@
 Outil de composition typographique directionnelle basé sur la charte graphique JML.  
 Développé pour les équipes Grapheine et JML Water Feature Design.
 
+![](.github/screenshot.png)
+
 ---
 
 ## Fonctionnement
