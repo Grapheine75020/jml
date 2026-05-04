@@ -21,7 +21,7 @@ export default function CanvasEditor() {
   }, [markDirty])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value)
+    setText(e.target.value.toLowerCase())
     markDirty()
   }
 

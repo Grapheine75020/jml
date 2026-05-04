@@ -34,7 +34,7 @@ Ajuster l'espacement entre tranches de 0 à 100 px.
 | État | Zustand |
 | UI | shadcn/ui — Tailwind CSS v4 — Radix UI |
 | Thème | next-themes (light / dark) |
-| Déploiement | Coolify — Docker self-hosted |
+| Déploiement | Statique — Vercel / intégration site existant |
 
 ---
 
@@ -58,6 +58,37 @@ npm run dev
 | Export SVG | Paths vectoriels natifs |
 | Export PNG | 300 dpi, fond transparent |
 | Navigateurs | Chrome, Safari, Edge — desktop ≥ 1280 px |
+
+---
+
+## Déploiement
+
+> **Application statique** — aucune dépendance serveur, aucune base de données. Tout le rendu s'effectue côté navigateur. L'outil peut être hébergé sur n'importe quel serveur web ou intégré directement dans un site existant.
+
+### Vercel (solution actuelle)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/picodesign/jml)
+
+Déploiement automatique à chaque push sur `main`. Gratuit (forfait Hobby). HTTPS inclus.
+
+> **Limite Hobby** : ne supporte pas les repos d'une organisation GitHub — le repo doit être sur un compte personnel.
+
+### Intégration dans un site existant
+
+```bash
+npm run build
+# génère les fichiers dans .next/
+```
+
+Les fichiers produits peuvent être déposés sur n'importe quel hébergement web existant (Apache, Nginx, hébergement mutualisé…) et servis sous un sous-chemin au choix — ex. `jmlwaterfeaturedesign.com/outil`.
+
+### Local
+
+```bash
+npm install && npm run build && npm run start
+```
+
+Accessible uniquement depuis le réseau local.
 
 ---
 
