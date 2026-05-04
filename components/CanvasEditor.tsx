@@ -7,8 +7,10 @@ import { useHitDetection } from '@/hooks/useHitDetection'
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from '@/lib/constants'
 import { Input } from '@/components/ui/input'
 import ExportPanel from '@/components/ExportPanel'
+import { useLang } from '@/lib/i18n/LangContext'
 
 export default function CanvasEditor() {
+  const { t } = useLang()
   const [text, setText] = useState('')
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const markDirty = useEngineStore((s) => s.markDirty)
@@ -45,7 +47,7 @@ export default function CanvasEditor() {
             <Input
               value={text}
               onChange={handleChange}
-              placeholder="Saisissez votre texte…"
+              placeholder={t('canvas.placeholder')}
               className="flex-1 h-9 border-0 shadow-none focus-visible:ring-0"
               autoFocus
             />

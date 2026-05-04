@@ -1,0 +1,59 @@
+{
+  "nav.graphicTool": "Graphic Tool",
+  "nav.about": "About",
+
+  "canvas.placeholder": "Type your text…",
+
+  "export.button": "Export",
+  "export.svg": "Vector (SVG)",
+  "export.png": "Image (PNG 300dpi)",
+  "export.success": "Export successful",
+  "export.error": "Export failed — try again",
+  "export.tooltip": "Enter text to export",
+
+  "mobile.title": "Tool not available on mobile",
+  "mobile.description": "Graphic Tool JML is designed for desktop. Please use Chrome, Safari or Edge on a computer.",
+
+  "direction.up": "Up",
+  "direction.down": "Down",
+  "direction.left": "Left",
+  "direction.right": "Right",
+  "direction.slices": "Slices",
+  "direction.gap": "Gap",
+
+  "about.title": "Graphic Tool JML",
+  "about.description": "Directional typographic composition tool based on the JML visual identity. Developed for internal use by the Grapheine and JML Water Feature Design teams.",
+  "about.howItWorks": "How it works",
+  "about.specs": "Technical specifications",
+  "about.credits": "Credits",
+  "about.back": "← Back to tool",
+
+  "about.step1": "Type any text in the canvas.",
+  "about.step2": "Click a letter to select it.",
+  "about.step3": "Activate one or more extension directions — up, down, left, right. Each direction is an independent toggle: click to activate, click again to deactivate. Multiple directions can be active on the same letter simultaneously.",
+  "about.step4": "Choose the slice ceiling from presets 3, 4 or 6. The slider lets you fine-tune the number of slices up to that ceiling. Adjust spacing between slices from 0 to 100 px.",
+  "about.step5": "Export as vector SVG or PNG 300 dpi with transparent background.",
+
+  "about.spec.fontLabel": "Font",
+  "about.spec.fontValue": "Libre Franklin Medium 500",
+  "about.spec.canvasLabel": "Canvas",
+  "about.spec.canvasValue": "1200 × 800 px",
+  "about.spec.directionsLabel": "Directions",
+  "about.spec.directionsValue": "Up to 4 directions active simultaneously per letter",
+  "about.spec.slicesLabel": "Max slices",
+  "about.spec.slicesValue": "Presets 3 / 4 / 6 — slider adjustable up to chosen ceiling",
+  "about.spec.svgLabel": "SVG export",
+  "about.spec.svgValue": "Native vector paths - compatible with Adobe Illustrator",
+  "about.spec.pngLabel": "PNG export",
+  "about.spec.pngValue": "300 dpi, transparent background",
+  "about.spec.browsersLabel": "Browsers",
+  "about.spec.browsersValue": "Chrome, Safari, Edge - desktop ≥ 1280 px",
+
+  "about.credit.grapheine.role": "JML visual identity design",
+  "about.credit.grapheine.type": "Graphic design agency",
+  "about.credit.dev.role": "Tool development",
+  "about.credit.dev.org": "Grapheine",
+  "about.credit.jml.role": "Client",
+  "about.credit.jml.name": "JML - Water Feature Design",
+  "about.credit.jml.type": "Water feature installations"
+}

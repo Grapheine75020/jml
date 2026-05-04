@@ -17,8 +17,10 @@ import {
 import { useEngineStore } from '@/lib/store'
 import { exportToSVG } from '@/lib/svg-exporter'
 import { exportToPNG } from '@/lib/png-exporter'
+import { useLang } from '@/lib/i18n/LangContext'
 
 export default function ExportPanel() {
+  const { t } = useLang()
   const store = useEngineStore()
   const characters = useEngineStore((s) => s.characters)
   const isReady = characters.length > 0
@@ -26,20 +28,20 @@ export default function ExportPanel() {
   const handleExportSVG = async () => {
     try {
       await exportToSVG(store)
-      toast.success('Export réussi')
+      toast.success(t('export.success'))
     } catch (e) {
       console.error('SVG export failed:', e)
-      toast.error('Export impossible — réessayer')
+      toast.error(t('export.error'))
     }
   }
 
   const handleExportPNG = () => {
     try {
       exportToPNG(store)
-      toast.success('Export réussi')
+      toast.success(t('export.success'))
     } catch (e) {
       console.error('PNG export failed:', e)
-      toast.error('Export impossible — réessayer')
+      toast.error(t('export.error'))
     }
   }
 
@@ -51,24 +53,24 @@ export default function ExportPanel() {
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm" disabled={!isReady} className="gap-2">
                 <Download size={15} weight="bold" />
-                Exporter
+                {t('export.button')}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-48">
               <DropdownMenuItem onClick={handleExportSVG} className="gap-2">
                 <FileCode size={16} />
-                Vectoriel (SVG)
+                {t('export.svg')}
               </DropdownMenuItem>
               <DropdownMenuItem onClick={handleExportPNG} className="gap-2">
                 <ImageIcon size={16} />
-                Image (PNG 300dpi)
+                {t('export.png')}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </span>
       </TooltipTrigger>
       {!isReady && (
-        <TooltipContent>Saisissez un texte pour exporter</TooltipContent>
+        <TooltipContent>{t('export.tooltip')}</TooltipContent>
       )}
     </Tooltip>
   )

@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { useLang } from '@/lib/i18n/LangContext'
 
 // < 768px = phones only; 768px is Tailwind's md breakpoint (tablets pass through)
 const PHONE_MAX_WIDTH = 768
 
 export default function MobileWarning({ children }: { children: React.ReactNode }) {
+  const { t } = useLang()
   const [state, setState] = useState({ isPhone: false, checked: false })
 
   useEffect(() => {
@@ -23,11 +25,8 @@ export default function MobileWarning({ children }: { children: React.ReactNode 
     return (
       <div className="flex min-h-svh items-center justify-center p-6">
         <Alert variant="destructive" className="max-w-md">
-          <AlertTitle>Outil non disponible sur téléphone</AlertTitle>
-          <AlertDescription>
-            Graphic Tool JML est conçu pour desktop. Merci d&apos;utiliser
-            Chrome, Safari ou Edge sur un ordinateur.
-          </AlertDescription>
+          <AlertTitle>{t('mobile.title')}</AlertTitle>
+          <AlertDescription>{t('mobile.description')}</AlertDescription>
         </Alert>
       </div>
     )

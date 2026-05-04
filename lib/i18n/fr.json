@@ -1,0 +1,59 @@
+{
+  "nav.graphicTool": "Graphic Tool",
+  "nav.about": "À propos",
+
+  "canvas.placeholder": "Saisissez votre texte…",
+
+  "export.button": "Exporter",
+  "export.svg": "Vectoriel (SVG)",
+  "export.png": "Image (PNG 300dpi)",
+  "export.success": "Export réussi",
+  "export.error": "Export impossible — réessayer",
+  "export.tooltip": "Saisissez un texte pour exporter",
+
+  "mobile.title": "Outil non disponible sur téléphone",
+  "mobile.description": "Graphic Tool JML est conçu pour desktop. Merci d'utiliser Chrome, Safari ou Edge sur un ordinateur.",
+
+  "direction.up": "Haut",
+  "direction.down": "Bas",
+  "direction.left": "Gauche",
+  "direction.right": "Droite",
+  "direction.slices": "Tranches",
+  "direction.gap": "Gap",
+
+  "about.title": "Graphic Tool JML",
+  "about.description": "Outil de composition typographique directionnelle basé sur la charte graphique JML. Développé pour un usage interne par les équipes Grapheine et JML Water Feature Design.",
+  "about.howItWorks": "Fonctionnement",
+  "about.specs": "Spécifications techniques",
+  "about.credits": "Crédits",
+  "about.back": "← Retour à l'outil",
+
+  "about.step1": "Saisir un texte libre dans le canvas.",
+  "about.step2": "Cliquer sur une lettre pour la sélectionner.",
+  "about.step3": "Activer une ou plusieurs directions d'extension — haut, bas, gauche, droite. Chaque direction est un toggle indépendant : clic pour activer, re-clic pour désactiver. Plusieurs directions peuvent être actives simultanément sur la même lettre.",
+  "about.step4": "Choisir le plafond de tranches parmi les presets 3, 4 ou 6. Le slider permet ensuite de régler finement le nombre de tranches jusqu'à ce plafond. Ajuster l'espacement entre tranches de 0 à 100 px.",
+  "about.step5": "Exporter en SVG vectoriel ou PNG 300 dpi fond transparent.",
+
+  "about.spec.fontLabel": "Police",
+  "about.spec.fontValue": "Libre Franklin Medium 500",
+  "about.spec.canvasLabel": "Canvas",
+  "about.spec.canvasValue": "1200 × 800 px",
+  "about.spec.directionsLabel": "Directions",
+  "about.spec.directionsValue": "Jusqu'à 4 directions actives simultanément par lettre",
+  "about.spec.slicesLabel": "Tranches max",
+  "about.spec.slicesValue": "Presets 3 / 4 / 6 — slider ajustable jusqu'au plafond choisi",
+  "about.spec.svgLabel": "Export SVG",
+  "about.spec.svgValue": "Paths vectoriels natifs - compatible Adobe Illustrator",
+  "about.spec.pngLabel": "Export PNG",
+  "about.spec.pngValue": "300 dpi, fond transparent",
+  "about.spec.browsersLabel": "Navigateurs",
+  "about.spec.browsersValue": "Chrome, Safari, Edge - desktop ≥ 1280 px",
+
+  "about.credit.grapheine.role": "Conception de l'identité visuelle JML",
+  "about.credit.grapheine.type": "Agence de design graphique",
+  "about.credit.dev.role": "Développement de l'outil",
+  "about.credit.dev.org": "Grapheine",
+  "about.credit.jml.role": "Client",
+  "about.credit.jml.name": "JML - Water Feature Design",
+  "about.credit.jml.type": "Installations de jeux d'eau"
+}

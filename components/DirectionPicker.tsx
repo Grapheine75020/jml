@@ -7,17 +7,19 @@ import { Card } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { useEngineStore } from '@/lib/store'
 import type { Direction, SlicePreset } from '@/lib/types'
+import { useLang } from '@/lib/i18n/LangContext'
 
 const SLICE_PRESETS: SlicePreset[] = [3, 4, 6]
 
-const DIRECTIONS: { value: Direction; icon: React.ReactNode; label: string }[] = [
-  { value: 'up', icon: <ArrowUp size={16} />, label: 'Haut' },
-  { value: 'down', icon: <ArrowDown size={16} />, label: 'Bas' },
-  { value: 'left', icon: <ArrowLeft size={16} />, label: 'Gauche' },
-  { value: 'right', icon: <ArrowRight size={16} />, label: 'Droite' },
+const DIRECTION_VALUES: { value: Direction; icon: React.ReactNode }[] = [
+  { value: 'up', icon: <ArrowUp size={16} /> },
+  { value: 'down', icon: <ArrowDown size={16} /> },
+  { value: 'left', icon: <ArrowLeft size={16} /> },
+  { value: 'right', icon: <ArrowRight size={16} /> },
 ]
 
 export default function DirectionPicker() {
+  const { t } = useLang()
   const popupPosition = useEngineStore((s) => s.popupPosition)
   const selectedIndex = useEngineStore((s) => s.selectedIndex)
   const characters = useEngineStore((s) => s.characters)
@@ -75,8 +77,8 @@ export default function DirectionPicker() {
           value={currentDirections}
           onValueChange={handleDirection}
         >
-          {DIRECTIONS.map(({ value, icon, label }) => (
-            <ToggleGroupItem key={value} value={value} aria-label={label}>
+          {DIRECTION_VALUES.map(({ value, icon }) => (
+            <ToggleGroupItem key={value} value={value} aria-label={t(`direction.${value}` as `direction.${Direction}`)}>
               {icon}
             </ToggleGroupItem>
           ))}
@@ -88,7 +90,7 @@ export default function DirectionPicker() {
 
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <span className="text-muted-foreground text-xs">Tranches</span>
+                <span className="text-muted-foreground text-xs">{t('direction.slices')}</span>
                 <span className="text-xs font-medium">{currentSliceCount}</span>
               </div>
               <div className="flex gap-1">
@@ -117,7 +119,7 @@ export default function DirectionPicker() {
 
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <span className="text-muted-foreground text-xs">Gap</span>
+                <span className="text-muted-foreground text-xs">{t('direction.gap')}</span>
                 <span className="text-xs font-medium">{currentGap}px</span>
               </div>
               <Slider
