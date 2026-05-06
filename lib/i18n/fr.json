@@ -18,8 +18,7 @@
   "direction.down": "Bas",
   "direction.left": "Gauche",
   "direction.right": "Droite",
-  "direction.slices": "Tranches",
-  "direction.parts": "Parts",
+  "direction.slices": "Slices",
   "direction.gap": "Gap",
 
   "about.title": "Graphic Tool JML",

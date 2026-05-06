@@ -15,8 +15,6 @@ export type SliceRegion = {
   renderOffset: { dx: number; dy: number }
 }
 
-export type SlicePreset = 3 | 4 | 6
-
 export type ExtensionConfig = {
   directions: Direction[]
   sliceCount: 1 | 2 | 3 | 4 | 5 | 6
@@ -43,7 +41,6 @@ export interface EngineStore {
   selectedIndex: number | null
   isDirty: boolean
   sliceCount: 1 | 2 | 3 | 4 | 5 | 6
-  slicePreset: SlicePreset
   gap: number
   popupPosition: PopupPosition | null
   // Transform data for hit detection
@@ -55,7 +52,6 @@ export interface EngineStore {
   selectCharacter: (index: number | null) => void
   toggleDirection: (d: Direction) => void
   setSliceCount: (n: 1 | 2 | 3 | 4 | 5 | 6) => void
-  setSlicePreset: (p: SlicePreset) => void
   setGap: (px: number) => void
   markDirty: () => void
   updateCharacters: (chars: CharacterState[]) => void

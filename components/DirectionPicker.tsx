@@ -6,10 +6,8 @@ import { Slider } from '@/components/ui/slider'
 import { Card } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { useEngineStore } from '@/lib/store'
-import type { Direction, SlicePreset } from '@/lib/types'
+import type { Direction } from '@/lib/types'
 import { useLang } from '@/lib/i18n/LangContext'
-
-const SLICE_PRESETS: SlicePreset[] = [3, 4, 6]
 
 const DIRECTION_VALUES: { value: Direction; icon: React.ReactNode }[] = [
   { value: 'up', icon: <ArrowUp size={16} /> },
@@ -23,10 +21,8 @@ export default function DirectionPicker() {
   const popupPosition = useEngineStore((s) => s.popupPosition)
   const selectedIndex = useEngineStore((s) => s.selectedIndex)
   const characters = useEngineStore((s) => s.characters)
-  const slicePreset = useEngineStore((s) => s.slicePreset)
   const toggleDirection = useEngineStore((s) => s.toggleDirection)
   const setSliceCount = useEngineStore((s) => s.setSliceCount)
-  const setSlicePreset = useEngineStore((s) => s.setSlicePreset)
   const setGap = useEngineStore((s) => s.setGap)
   const setPopupPosition = useEngineStore((s) => s.setPopupPosition)
   const selectCharacter = useEngineStore((s) => s.selectCharacter)
@@ -51,10 +47,6 @@ export default function DirectionPicker() {
   const handleSliceCount = (value: number[]) => {
     const n = value[0] as 1 | 2 | 3 | 4 | 5 | 6
     setSliceCount(n)
-  }
-
-  const handleSlicePreset = (p: SlicePreset) => {
-    setSlicePreset(p)
   }
 
   const handleGap = (value: number[]) => {
@@ -89,29 +81,13 @@ export default function DirectionPicker() {
             <Separator />
 
             <div className="flex flex-col gap-2">
-              <span className="text-muted-foreground text-xs">{t('direction.slices')}</span>
-              <div className="flex gap-1">
-                {SLICE_PRESETS.map((p) => (
-                  <button
-                    key={p}
-                    onClick={() => handleSlicePreset(p)}
-                    className={`flex-1 rounded px-2 py-0.5 text-xs transition-colors ${
-                      slicePreset === p
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
-                  >
-                    {p}
-                  </button>
-                ))}
-              </div>
               <div className="flex items-center justify-between">
-                <span className="text-muted-foreground text-xs">{t('direction.parts')}</span>
+                <span className="text-muted-foreground text-xs">{t('direction.slices')}</span>
                 <span className="text-xs font-medium">{currentSliceCount}</span>
               </div>
               <Slider
                 min={1}
-                max={slicePreset}
+                max={6}
                 step={1}
                 value={[currentSliceCount]}
                 onValueChange={handleSliceCount}
