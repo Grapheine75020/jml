@@ -89,10 +89,7 @@ export default function DirectionPicker() {
             <Separator />
 
             <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground text-xs">{t('direction.slices')}</span>
-                <span className="text-xs font-medium">{currentSliceCount}</span>
-              </div>
+              <span className="text-muted-foreground text-xs">{t('direction.slices')}</span>
               <div className="flex gap-1">
                 {SLICE_PRESETS.map((p) => (
                   <button
@@ -107,6 +104,10 @@ export default function DirectionPicker() {
                     {p}
                   </button>
                 ))}
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-muted-foreground text-xs">{t('direction.parts')}</span>
+                <span className="text-xs font-medium">{currentSliceCount}</span>
               </div>
               <Slider
                 min={1}
