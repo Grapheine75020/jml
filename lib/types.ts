@@ -52,7 +52,6 @@ export interface EngineStore {
   selectCharacter: (index: number | null) => void
   toggleDirection: (d: Direction) => void
   setSliceCount: (n: 1 | 2 | 3 | 4 | 5 | 6) => void
-  setGap: (px: number) => void
   markDirty: () => void
   updateCharacters: (chars: CharacterState[]) => void
   setTransform: (t: { scale: number; offsetX: number; offsetY: number }) => void

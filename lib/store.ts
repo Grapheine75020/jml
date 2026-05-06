@@ -67,13 +67,6 @@ export const useEngineStore = create<EngineStore>()((set) => ({
       characters: updateSelectedExtension(state, { sliceCount: n }),
     })),
 
-  setGap: (px: number) =>
-    set((state) => ({
-      gap: px,
-      isDirty: true,
-      characters: updateSelectedExtension(state, { gap: px }),
-    })),
-
   markDirty: () =>
     set({ isDirty: true }),
 

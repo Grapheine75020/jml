@@ -19,7 +19,6 @@
   "direction.left": "Left",
   "direction.right": "Right",
   "direction.slices": "Slices",
-  "direction.gap": "Gap",
 
   "about.title": "Graphic Tool JML",
   "about.description": "Directional typographic composition tool based on the JML visual identity. Developed for internal use by the Grapheine and JML Water Feature Design teams.",
@@ -31,7 +30,7 @@
   "about.step1": "Type any text in the canvas.",
   "about.step2": "Click a letter to select it.",
   "about.step3": "Activate one or more extension directions — up, down, left, right. Each direction is an independent toggle: click to activate, click again to deactivate. Multiple directions can be active on the same letter simultaneously.",
-  "about.step4": "Adjust the number of slices with the slider (1 → 6). Adjust spacing between slices from 0 to 100 px with the Gap slider.",
+  "about.step4": "Adjust the number of slices with the slider (1 → 6).",
   "about.step5": "Export as vector SVG or PNG 300 dpi with transparent background.",
 
   "about.spec.fontLabel": "Font",
@@ -41,7 +40,7 @@
   "about.spec.directionsLabel": "Directions",
   "about.spec.directionsValue": "Up to 4 directions active simultaneously per letter",
   "about.spec.slicesLabel": "Slices",
-  "about.spec.slicesValue": "Slider 1 → 6",
+  "about.spec.slicesValue": "Slider 1 → 6, fixed spacing 10 px",
   "about.spec.svgLabel": "SVG export",
   "about.spec.svgValue": "Native vector paths - compatible with Adobe Illustrator",
   "about.spec.pngLabel": "PNG export",

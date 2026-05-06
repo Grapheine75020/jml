@@ -19,7 +19,6 @@
   "direction.left": "Gauche",
   "direction.right": "Droite",
   "direction.slices": "Slices",
-  "direction.gap": "Gap",
 
   "about.title": "Graphic Tool JML",
   "about.description": "Outil de composition typographique directionnelle basé sur la charte graphique JML. Développé pour un usage interne par les équipes Grapheine et JML Water Feature Design.",
@@ -31,7 +30,7 @@
   "about.step1": "Saisir un texte libre dans le canvas.",
   "about.step2": "Cliquer sur une lettre pour la sélectionner.",
   "about.step3": "Activer une ou plusieurs directions d'extension — haut, bas, gauche, droite. Chaque direction est un toggle indépendant : clic pour activer, re-clic pour désactiver. Plusieurs directions peuvent être actives simultanément sur la même lettre.",
-  "about.step4": "Régler le nombre de slices avec le slider (1 → 6). Ajuster l'espacement entre slices de 0 à 100 px avec le slider Gap.",
+  "about.step4": "Régler le nombre de slices avec le slider (1 → 6).",
   "about.step5": "Exporter en SVG vectoriel ou PNG 300 dpi fond transparent.",
 
   "about.spec.fontLabel": "Police",
@@ -41,7 +40,7 @@
   "about.spec.directionsLabel": "Directions",
   "about.spec.directionsValue": "Jusqu'à 4 directions actives simultanément par lettre",
   "about.spec.slicesLabel": "Slices",
-  "about.spec.slicesValue": "Slider 1 → 6",
+  "about.spec.slicesValue": "Slider 1 → 6, espacement fixe 10 px",
   "about.spec.svgLabel": "Export SVG",
   "about.spec.svgValue": "Paths vectoriels natifs - compatible Adobe Illustrator",
   "about.spec.pngLabel": "Export PNG",

@@ -16,9 +16,8 @@ Développé pour les équipes Grapheine et JML Water Feature Design.
 **3. Activer une ou plusieurs directions** — ↑ ↓ ← →  
 Chaque bouton est un toggle indépendant. Plusieurs directions peuvent être actives simultanément sur la même lettre.
 
-**4. Régler les slices et le gap**  
-Ajuster le nombre de slices avec le slider (1 → 6).  
-Ajuster l'espacement entre slices de 0 à 100 px.
+**4. Régler les slices**  
+Ajuster le nombre de slices avec le slider (1 → 6). Espacement fixe à 10 px.
 
 **5. Exporter** en SVG vectoriel (Illustrator-ready) ou PNG 300 dpi fond transparent.
 
@@ -54,7 +53,7 @@ npm run dev
 | Police | Libre Franklin Medium 500 |
 | Canvas | 1200 × 800 px |
 | Directions | Jusqu'à 4 simultanées par lettre |
-| Slices | 1 → 6 via slider |
+| Slices | Slider 1 → 6, espacement fixe 10 px |
 | Export SVG | Paths vectoriels natifs |
 | Export PNG | 300 dpi, fond transparent |
 | Navigateurs | Chrome, Safari, Edge — desktop ≥ 1280 px |

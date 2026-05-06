@@ -23,7 +23,6 @@ export default function DirectionPicker() {
   const characters = useEngineStore((s) => s.characters)
   const toggleDirection = useEngineStore((s) => s.toggleDirection)
   const setSliceCount = useEngineStore((s) => s.setSliceCount)
-  const setGap = useEngineStore((s) => s.setGap)
   const setPopupPosition = useEngineStore((s) => s.setPopupPosition)
   const selectCharacter = useEngineStore((s) => s.selectCharacter)
 
@@ -32,11 +31,8 @@ export default function DirectionPicker() {
   const ext = characters[selectedIndex]?.extension
   const currentDirections = ext?.directions ?? []
   const currentSliceCount = ext?.sliceCount ?? 3
-  const currentGap = ext?.gap ?? 10
 
   const handleDirection = (values: string[]) => {
-    // ToggleGroup type="multiple" fires with the full new selection array.
-    // We derive which direction was toggled by comparing with current state.
     const prev = new Set(currentDirections)
     const next = new Set(values as Direction[])
     const toggled =
@@ -47,10 +43,6 @@ export default function DirectionPicker() {
   const handleSliceCount = (value: number[]) => {
     const n = value[0] as 1 | 2 | 3 | 4 | 5 | 6
     setSliceCount(n)
-  }
-
-  const handleGap = (value: number[]) => {
-    setGap(value[0])
   }
 
   const handleBackdrop = () => {
@@ -94,19 +86,6 @@ export default function DirectionPicker() {
               />
             </div>
 
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground text-xs">{t('direction.gap')}</span>
-                <span className="text-xs font-medium">{currentGap}px</span>
-              </div>
-              <Slider
-                min={0}
-                max={100}
-                step={1}
-                value={[currentGap]}
-                onValueChange={handleGap}
-              />
-            </div>
           </>
         )}
       </Card>
