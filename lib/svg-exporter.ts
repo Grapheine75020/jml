@@ -10,12 +10,14 @@ export function generateSVG(
   store: EngineStore,
   opentype: any,
   ctx: CanvasRenderingContext2D,
+  options?: { whiteText?: boolean },
 ): string {
   const { characters, opentypeFont, transform } = store
   if (!opentypeFont) return ''
 
   const { scale, offsetX, offsetY } = transform
   const fontSize = CANVAS_FONT_SIZE
+  const fillColor = options?.whiteText ? 'white' : 'black'
 
   let svgContent = `<svg width="${CANVAS_WIDTH}" height="${CANVAS_HEIGHT}" viewBox="0 0 ${CANVAS_WIDTH} ${CANVAS_HEIGHT}" xmlns="http://www.w3.org/2000/svg">\n`
 
@@ -48,7 +50,7 @@ export function generateSVG(
     const glyph = opentypeFont.charToGlyph(char)
     const pathData = glyph.getPath(x, y, fontSize).toPathData(2)
 
-    svgContent += `    <path d="${pathData}" fill="black" />\n`
+    svgContent += `    <path d="${pathData}" fill="${fillColor}" />\n`
 
     if (extension?.directions?.length) {
       extension.directions.forEach((dir, di) => {
@@ -57,7 +59,7 @@ export function generateSVG(
           const sliceX = x + slice.renderOffset.dx
           const sliceY = y + slice.renderOffset.dy
           const slicePathData = glyph.getPath(sliceX, sliceY, fontSize).toPathData(2)
-          svgContent += `    <path d="${slicePathData}" fill="black" clip-path="url(#clip-${i}-${di}-${j})" />\n`
+          svgContent += `    <path d="${slicePathData}" fill="${fillColor}" clip-path="url(#clip-${i}-${di}-${j})" />\n`
         })
       })
     }
@@ -72,7 +74,7 @@ export function generateSVG(
 /**
  * Exports the current composition to a vector SVG file.
  */
-export async function exportToSVG(store: EngineStore) {
+export async function exportToSVG(store: EngineStore, options?: { whiteText?: boolean }) {
   const { opentypeFont } = store
   if (!opentypeFont) {
     console.error('Font not loaded for SVG export')
@@ -86,7 +88,7 @@ export async function exportToSVG(store: EngineStore) {
   if (!ctx) return
   ctx.font = CANVAS_FONT
 
-  const svgContent = generateSVG(store, opentype, ctx)
+  const svgContent = generateSVG(store, opentype, ctx, options)
 
   const blob = new Blob([svgContent], { type: 'image/svg+xml' })
   const url = URL.createObjectURL(blob)

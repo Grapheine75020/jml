@@ -10,6 +10,7 @@
   "export.success": "Export successful",
   "export.error": "Export failed — try again",
   "export.tooltip": "Enter text to export",
+  "export.whiteText": "White text",
 
   "mobile.title": "Tool not available on mobile",
   "mobile.description": "Graphic Tool JML is designed for desktop. Please use Chrome, Safari or Edge on a computer.",

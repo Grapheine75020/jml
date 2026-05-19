@@ -15,6 +15,7 @@ export function drawOnContext(
     height?: number
     exportScale?: number
     isDark?: boolean
+    forceTextColor?: string
   } = {},
 ) {
   const { scale, offsetX, offsetY } = transform
@@ -24,9 +25,10 @@ export function drawOnContext(
     height = CANVAS_HEIGHT,
     exportScale = 1,
     isDark = false,
+    forceTextColor,
   } = options
 
-  const textColor = isDark ? '#ffffff' : '#000000'
+  const textColor = forceTextColor ?? (isDark ? '#ffffff' : '#000000')
 
   ctx.save()
   ctx.clearRect(0, 0, width, height)

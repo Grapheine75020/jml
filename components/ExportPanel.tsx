@@ -1,12 +1,15 @@
 'use client'
 
+import { useState } from 'react'
 import { Download, Image as ImageIcon, FileCode } from '@phosphor-icons/react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import {
@@ -24,10 +27,11 @@ export default function ExportPanel() {
   const store = useEngineStore()
   const characters = useEngineStore((s) => s.characters)
   const isReady = characters.length > 0
+  const [whiteText, setWhiteText] = useState(false)
 
   const handleExportSVG = async () => {
     try {
-      await exportToSVG(store)
+      await exportToSVG(store, { whiteText })
       toast.success(t('export.success'))
     } catch (e) {
       console.error('SVG export failed:', e)
@@ -37,7 +41,7 @@ export default function ExportPanel() {
 
   const handleExportPNG = () => {
     try {
-      exportToPNG(store)
+      exportToPNG(store, { whiteText })
       toast.success(t('export.success'))
     } catch (e) {
       console.error('PNG export failed:', e)
@@ -57,6 +61,13 @@ export default function ExportPanel() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="min-w-48">
+              <DropdownMenuCheckboxItem
+                checked={whiteText}
+                onCheckedChange={setWhiteText}
+              >
+                {t('export.whiteText')}
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleExportSVG} className="gap-2">
                 <FileCode size={16} />
                 {t('export.svg')}

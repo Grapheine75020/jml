@@ -6,7 +6,7 @@ import { drawOnContext } from './renderer-utils'
  * Exports the current composition to a high-resolution PNG file.
  * Target resolution is 300dpi (assuming 1200px is ~4 inches).
  */
-export function exportToPNG(store: EngineStore) {
+export function exportToPNG(store: EngineStore, options?: { whiteText?: boolean }) {
   const { characters, transform } = store
 
   // 300dpi scaling factor (approx 4x from standard 72/96dpi)
@@ -26,6 +26,7 @@ export function exportToPNG(store: EngineStore) {
     width,
     height,
     exportScale: EXPORT_SCALE,
+    ...(options?.whiteText ? { forceTextColor: 'white' } : {}),
   })
 
   // Export to blob and download
