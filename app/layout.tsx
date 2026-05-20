@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { Toaster } from "@/components/ui/sonner"
 import { cn } from "@/lib/utils"
 import { LangProvider } from "@/lib/i18n/LangContext"
+import ConsoleCredit from "@/components/ConsoleCredit"
 
 const inter = Inter({subsets:['latin'],variable:'--font-sans'})
 
@@ -33,6 +34,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <LangProvider>
+            <ConsoleCredit />
             <TooltipProvider>
               {children}
             </TooltipProvider>

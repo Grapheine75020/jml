@@ -5,6 +5,7 @@ import { useEngineStore } from '@/lib/store'
 import { useCanvasRenderer } from '@/hooks/useCanvasRenderer'
 import { useHitDetection } from '@/hooks/useHitDetection'
 import { CANVAS_WIDTH, CANVAS_HEIGHT } from '@/lib/constants'
+import { checkRendererIntegrity } from '@/components/ConsoleCredit'
 import { Input } from '@/components/ui/input'
 import ExportPanel from '@/components/ExportPanel'
 import { useLang } from '@/lib/i18n/LangContext'
@@ -20,6 +21,7 @@ export default function CanvasEditor() {
 
   useEffect(() => {
     markDirty()
+    checkRendererIntegrity()
   }, [markDirty])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
