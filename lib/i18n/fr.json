@@ -27,6 +27,7 @@
   "about.specs": "Spécifications techniques",
   "about.credits": "Crédits",
   "about.back": "← Retour à l'outil",
+  "about.reportBug": "Signaler un bug",
 
   "about.step1": "Saisir un texte libre dans le canvas.",
   "about.step2": "Cliquer sur une lettre pour la sélectionner.",
@@ -51,8 +52,6 @@
 
   "about.credit.grapheine.role": "Conception de l'identité visuelle JML",
   "about.credit.grapheine.type": "Agence de design graphique",
-  "about.credit.dev.role": "Développement de l'outil",
-  "about.credit.dev.org": "Grapheine",
   "about.credit.jml.role": "Client",
   "about.credit.jml.name": "JML - Water Feature Design",
   "about.credit.jml.type": "Installations de jeux d'eau"

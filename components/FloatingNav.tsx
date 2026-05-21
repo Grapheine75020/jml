@@ -21,7 +21,6 @@ export default function FloatingNav() {
           alt="JML"
           width={32}
           height={32}
-          priority
           unoptimized
           className="dark:hidden"
         />
@@ -31,7 +30,6 @@ export default function FloatingNav() {
           alt="JML"
           width={32}
           height={32}
-          priority
           unoptimized
           className="hidden dark:block"
         />

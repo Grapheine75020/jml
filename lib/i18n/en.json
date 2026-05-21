@@ -27,6 +27,7 @@
   "about.specs": "Technical specifications",
   "about.credits": "Credits",
   "about.back": "← Back to tool",
+  "about.reportBug": "Report a bug",
 
   "about.step1": "Type any text in the canvas.",
   "about.step2": "Click a letter to select it.",
@@ -51,8 +52,6 @@
 
   "about.credit.grapheine.role": "JML visual identity design",
   "about.credit.grapheine.type": "Graphic design agency",
-  "about.credit.dev.role": "Tool development",
-  "about.credit.dev.org": "Grapheine",
   "about.credit.jml.role": "Client",
   "about.credit.jml.name": "JML - Water Feature Design",
   "about.credit.jml.type": "Water feature installations"

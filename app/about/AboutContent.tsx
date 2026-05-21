@@ -1,12 +1,12 @@
 'use client'
 
+import { Bug } from '@phosphor-icons/react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-  AvatarGroup,
 } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
@@ -125,43 +125,6 @@ export default function AboutContent() {
             </div>
           </a>
 
-          {/* Alessandro + PicoDesign — développement */}
-          <div className="flex items-center gap-4">
-            <AvatarGroup>
-              <Avatar size="lg">
-                <AvatarImage
-                  src="/photoppalessandro/pp-al.jpg"
-                  alt="Alessandro Capiluppi"
-                />
-                <AvatarFallback>AC</AvatarFallback>
-              </Avatar>
-              <Avatar size="lg">
-                <AvatarImage src="/logo-pico/pp.jpg" alt="PicoDesign" />
-                <AvatarFallback>PD</AvatarFallback>
-              </Avatar>
-            </AvatarGroup>
-            <div className="flex flex-col">
-              <span className="text-xs text-muted-foreground">
-                {t('about.credit.dev.role')}
-              </span>
-              <div className="flex items-center gap-1.5 text-sm font-medium">
-                <span>Alessandro Capiluppi</span>
-                <span className="text-muted-foreground">·</span>
-                <a
-                  href="https://picodesign.fr"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:underline underline-offset-2"
-                >
-                  PicoDesign
-                </a>
-              </div>
-              <span className="text-xs text-muted-foreground">
-                {t('about.credit.dev.org')}
-              </span>
-            </div>
-          </div>
-
           {/* JML — client */}
           <a
             href="https://jmlwaterfeaturedesign.com/fr"
@@ -202,9 +165,18 @@ export default function AboutContent() {
         <Separator />
 
         {/* Retour */}
-        <Button variant="ghost" size="sm" asChild className="-ml-3">
-          <Link href="/">{t('about.back')}</Link>
-        </Button>
+        <div className="flex items-center justify-between">
+          <Button variant="ghost" size="sm" asChild className="-ml-3">
+            <Link href="/">{t('about.back')}</Link>
+          </Button>
+          <a
+            href="mailto:alessandro@grapheine.com"
+            className="flex items-center gap-1.5 text-xs text-muted-foreground/60 hover:text-muted-foreground transition-colors"
+          >
+            <Bug size={13} />
+            {t('about.reportBug')}
+          </a>
+        </div>
 
       </div>
     </main>
