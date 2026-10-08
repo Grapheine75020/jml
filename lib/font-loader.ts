@@ -1,8 +1,9 @@
 import type { Font } from 'opentype.js'
 import { CANVAS_FONT, CANVAS_FONT_SIZE } from './constants'
 import { populateGlyphCache } from './glyph-cache'
+import { asset } from './asset'
 
-const FONT_URL = '/fonts/LibreFranklin-Medium.ttf'
+const FONT_URL = asset('/fonts/LibreFranklin-Medium.ttf')
 
 export type LoadFontResult =
   | { ok: true; font: Font }

@@ -17,6 +17,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { useLang } from '@/lib/i18n/LangContext'
+import { asset } from '@/lib/asset'
 
 export default function AboutContent() {
   const { t } = useLang()
@@ -109,7 +110,7 @@ export default function AboutContent() {
             className="flex items-center gap-4 group"
           >
             <Avatar size="lg" className="rounded-lg bg-black">
-              <AvatarImage src="/logo-grapheine.ico" alt="Grapheine" className="object-contain rounded-lg p-1" />
+              <AvatarImage src={asset('/logo-grapheine.ico')} alt="Grapheine" className="object-contain rounded-lg p-1" />
               <AvatarFallback className="rounded-lg">G</AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
@@ -135,13 +136,13 @@ export default function AboutContent() {
             <Avatar size="lg">
               {/* Logo noir (light) */}
               <AvatarImage
-                src="/logo-jml/PNG/Logo_JMLlogo-noir.png"
+                src={asset('/logo-jml/PNG/Logo_JMLlogo-noir.png')}
                 alt="JML Water Feature Design"
                 className="dark:hidden"
               />
               {/* Logo blanc (dark) */}
               <Image
-                src="/logo-jml/PNG/Logo_JMLlogo-blanc.png"
+                src={asset('/logo-jml/PNG/Logo_JMLlogo-blanc.png')}
                 alt="JML Water Feature Design"
                 width={40}
                 height={40}

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useLang } from '@/lib/i18n/LangContext'
+import { asset } from '@/lib/asset'
 
 export default function FloatingNav() {
   const { lang, setLang, t } = useLang()
@@ -17,7 +18,7 @@ export default function FloatingNav() {
       >
         {/* Logo noir (light) */}
         <Image
-          src="/logo-jml/SVG/Logo_JMLlogo-noir.svg"
+          src={asset('/logo-jml/SVG/Logo_JMLlogo-noir.svg')}
           alt="JML"
           width={32}
           height={32}
@@ -26,7 +27,7 @@ export default function FloatingNav() {
         />
         {/* Logo blanc (dark) */}
         <Image
-          src="/logo-jml/SVG/Logo_JMLlogo-blanc.svg"
+          src={asset('/logo-jml/SVG/Logo_JMLlogo-blanc.svg')}
           alt="JML"
           width={32}
           height={32}
