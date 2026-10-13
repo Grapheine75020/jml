@@ -3,6 +3,8 @@
 Outil de composition typographique directionnelle basé sur la charte graphique JML.  
 Développé pour les équipes Grapheine et JML Water Feature Design.
 
+**Version en ligne (déploiement officiel) : [picodesign.fr/jml](https://picodesign.fr/jml)**
+
 ![](.github/screenshot.png)
 
 ---
@@ -64,7 +66,13 @@ npm run dev
 
 > **Application statique** — aucune dépendance serveur, aucune base de données. Tout le rendu s'effectue côté navigateur. L'outil peut être hébergé sur n'importe quel serveur web ou intégré directement dans un site existant.
 
-### Vercel
+### Déploiement officiel
+
+L'instance de référence est hébergée par PicoDesign : [picodesign.fr/jml](https://picodesign.fr/jml). C'est la seule version maintenue et mise à jour.
+
+### Vercel (pour démarrer rapidement)
+
+Pour tester ou héberger votre propre copie :
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/picodesign/jml)
 
