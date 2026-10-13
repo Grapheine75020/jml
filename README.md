@@ -91,7 +91,7 @@ npm run build
 # génère les fichiers dans .next/
 ```
 
-Les fichiers produits peuvent être déposés sur n'importe quel hébergement web existant (Apache, Nginx, hébergement mutualisé…) et servis sous un sous-chemin au choix — ex. `jmlwaterfeaturedesign.com/outil`.
+Les fichiers produits peuvent être déposés sur n'importe quel hébergement web existant (Apache, Nginx, hébergement mutualisé…) et servis sous un sous-chemin au choix — ex. `jml-elements.com/outil`.
 
 ### Local
 
@@ -109,7 +109,7 @@ Accessible uniquement depuis le réseau local.
 |------|-------------|
 | Conception identité visuelle JML | [Grapheine](https://grapheine.com) |
 | Développement | Alessandro Capiluppi / [PicoDesign](https://picodesign.fr) |
-| Client | [JML Water Feature Design](https://jmlwaterfeaturedesign.com/fr) |
+| Client | [JML Water Feature Design](https://www.jml-elements.com/) |
 
 ---
 
@@ -117,6 +117,6 @@ Accessible uniquement depuis le réseau local.
 
 © 2026 Alessandro Capiluppi / [PicoDesign](https://picodesign.fr) — tous droits réservés.
 
-Outil conçu pour [Grapheine](https://grapheine.com) et [JML Water Feature Design](https://jmlwaterfeaturedesign.com/fr), à usage interne. Le code est consultable publiquement, sans autre droit — voir [LICENSE](./LICENSE).
+Outil conçu pour [Grapheine](https://grapheine.com) et [JML Water Feature Design](https://www.jml-elements.com/), à usage interne. Le code est consultable publiquement, sans autre droit — voir [LICENSE](./LICENSE).
 
 La police Libre Franklin est distribuée sous [SIL OFL 1.1](./public/fonts/OFL.txt).

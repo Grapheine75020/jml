@@ -128,7 +128,7 @@ export default function AboutContent() {
 
           {/* JML — client */}
           <a
-            href="https://jmlwaterfeaturedesign.com/fr"
+            href="https://www.jml-elements.com/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-4 group"
