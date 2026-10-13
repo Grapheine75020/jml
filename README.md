@@ -27,7 +27,7 @@ Ajuster le nombre de slices avec le slider (1 → 6). Espacement fixe à 10 px.
 
 | Couche | Technologie |
 |--------|-------------|
-| Framework | Next.js 15 — App Router — React 19 |
+| Framework | Next.js 16 — App Router — React 19 |
 | Langage | TypeScript |
 | Rendu | HTML5 Canvas 2D + OpenType.js |
 | État | Zustand |
@@ -64,13 +64,17 @@ npm run dev
 
 > **Application statique** — aucune dépendance serveur, aucune base de données. Tout le rendu s'effectue côté navigateur. L'outil peut être hébergé sur n'importe quel serveur web ou intégré directement dans un site existant.
 
-### Vercel (solution actuelle)
+### Vercel
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/picodesign/jml)
 
-Déploiement automatique à chaque push sur `main`. Gratuit (forfait Hobby). HTTPS inclus.
+Le bouton clone le dépôt dans votre compte GitHub et le déploie sur Vercel : aucune configuration requise, l'outil est servi à la racine. HTTPS inclus.
 
-> **Limite Hobby** : ne supporte pas les repos d'une organisation GitHub — le repo doit être sur un compte personnel.
+> **Forfaits** : le forfait Hobby de Vercel est réservé à un usage personnel non commercial, et le dépôt doit se trouver sur un compte GitHub personnel (pas une organisation). Un usage en entreprise relève du forfait Pro.
+
+### Sous-chemin (optionnel)
+
+Pour servir l'outil sous un sous-chemin (ex. `/jml`), définir `NEXT_PUBLIC_BASE_PATH=/jml` **avant** le build.
 
 ### Intégration dans un site existant
 
@@ -103,4 +107,5 @@ Accessible uniquement depuis le réseau local.
 
 ## Licence
 
-Usage interne — voir [LICENSE](./LICENSE).
+Code consultable publiquement, tous droits réservés — voir [LICENSE](./LICENSE).
+La police Libre Franklin est sous [SIL OFL 1.1](./public/fonts/OFL.txt).
