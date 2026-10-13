@@ -115,5 +115,8 @@ Accessible uniquement depuis le réseau local.
 
 ## Licence
 
-Code consultable publiquement, tous droits réservés — voir [LICENSE](./LICENSE).
-La police Libre Franklin est sous [SIL OFL 1.1](./public/fonts/OFL.txt).
+© 2026 Alessandro Capiluppi / [PicoDesign](https://picodesign.fr) — tous droits réservés.
+
+Outil conçu pour [Grapheine](https://grapheine.com) et [JML Water Feature Design](https://jmlwaterfeaturedesign.com/fr), à usage interne. Le code est consultable publiquement, sans autre droit — voir [LICENSE](./LICENSE).
+
+La police Libre Franklin est distribuée sous [SIL OFL 1.1](./public/fonts/OFL.txt).
