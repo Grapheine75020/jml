@@ -23,7 +23,6 @@ export default function DirectionPicker() {
   const characters = useEngineStore((s) => s.characters)
   const toggleDirection = useEngineStore((s) => s.toggleDirection)
   const setSliceCount = useEngineStore((s) => s.setSliceCount)
-  const setPopupPosition = useEngineStore((s) => s.setPopupPosition)
   const selectCharacter = useEngineStore((s) => s.selectCharacter)
 
   if (!popupPosition || selectedIndex === null) return null

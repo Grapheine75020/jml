@@ -1,5 +1,5 @@
 import { CANVAS_FONT, CANVAS_FONT_SIZE, CANVAS_WIDTH, CANVAS_HEIGHT } from './constants'
-import type { CharacterState, EngineStore } from './types'
+import type { EngineStore } from './types'
 import { buildSliceRegions } from './slice-engine'
 
 /**
@@ -8,7 +8,7 @@ import { buildSliceRegions } from './slice-engine'
  */
 export function generateSVG(
   store: EngineStore,
-  opentype: any,
+  opentype: unknown,
   ctx: CanvasRenderingContext2D,
   options?: { whiteText?: boolean },
 ): string {

@@ -23,6 +23,8 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const saved = localStorage.getItem('jml-lang')
+      // Lecture après hydratation pour éviter un mismatch SSR
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (saved === 'fr' || saved === 'en') setLangState(saved)
     } catch {
       // localStorage inaccessible — conserver FR par défaut

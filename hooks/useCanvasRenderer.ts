@@ -4,12 +4,8 @@ import { useEffect, useRef } from 'react'
 import { useEngineStore } from '@/lib/store'
 import { CANVAS_FONT, CANVAS_WIDTH, CANVAS_HEIGHT } from '@/lib/constants'
 import { computeGlyphBounds } from '@/lib/glyph-metrics'
-import { buildSliceRegions } from '@/lib/slice-engine'
 import { drawOnContext } from '@/lib/renderer-utils'
 import type { CharacterState, ExtensionConfig } from '@/lib/types'
-
-const BASELINE_RATIO = 0.65
-const SELECTION_COLOR = '#7c3aed'
 
 /**
  * Returns the total horizontal width occupied by projections,
@@ -73,7 +69,6 @@ export function useCanvasRenderer(
       }
 
       ctx.font = CANVAS_FONT
-      const baseline = 0 // We'll compute the actual Y shift later
       const n = text.length
 
       // ── Phase 1 : métriques de base (à l'échelle 1:1) ────────────
